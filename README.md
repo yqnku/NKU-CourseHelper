@@ -12,7 +12,7 @@
 加入了通过选课序号列出课程信息的功能
 
 # 安装
-1. [下载 Chrome 拓展](https://github.com/yqnku/NKU-CourseHelper/releases/download/V1.2/NKU-CourseHelper-V1.2.crx)
+1. [下载 Chrome 拓展](https://github.com/yqnku/NKU-CourseHelper/releases/download/V1.3/NKU-CourseHelper-V1.3.crx)
 2. 新版本的 Chrome 会拒绝安装不是来自官方商店的拓展，因此需要手动安装：
 
         1) 打开 Chrome 设置 -> [拓展程序](chrome://extensions/)
@@ -26,6 +26,40 @@
 ## 注意
 
 由于选课手册一年会有三次更新，所以在选课手册更新后请及时更新该拓展
+
+## 更新历史
+
+V1.3
+
+主要更新：
+
+加入了响应Enter事件。
+
+V1.2
+
+主要更新：
+
+1.将开课单位的序号改为院系名称加序号。
+
+2.改变了界面布局。
+
+V1.1
+
+主要更新
+
+1.加入了excel版选课手册的超链接。
+
+V1.0 
+
+NKU-Course-Helper 正式发布！
+
+主要功能：
+
+1.修复选课系统无法正常登录的问题。
+
+2.计算ABC，ABCD，BCD，ABCDE学分绩。
+
+3.加入了通过选课序号定位课程名称上课地点等信息。
 
 ## Thanks to
 
