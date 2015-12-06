@@ -12,7 +12,7 @@
 加入了通过选课序号列出课程信息的功能
 
 # 安装
-1. [下载 Chrome 拓展](https://github.com/yqnku/NKU-CourseHelper/releases/download/V1.3/NKU-CourseHelper-V1.3.crx)
+1. [下载 Chrome 拓展](https://github.com/yqnku/NKU-CourseHelper/releases/download/V1.4/NKU-CourseHelper-ForChrome-V1.4.crx)
 2. 新版本的 Chrome 会拒绝安装不是来自官方商店的拓展，因此需要手动安装：
 
         1) 打开 Chrome 设置 -> [拓展程序](chrome://extensions/)
@@ -28,6 +28,12 @@
 由于选课手册一年会有三次更新，所以在选课手册更新后请及时更新该拓展
 
 ## 更新历史
+
+V1.4
+
+主要更新：
+
+加入了关于页面，快速跳转至本页面。
 
 V1.3
 
