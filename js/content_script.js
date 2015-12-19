@@ -40,6 +40,22 @@ function Patch()
             }
         }
     }
+    
+    //这部分用来在选课页面增加课程上课时间地点等信息
+    /*
+    var mf = window.top.document.getElementsByName("mainFrame")[0];
+    if (mf !== undefined)
+    {
+        mf = mf.contentDocument;
+        tr=mf.getElementsByTagName('tr')[2];
+        tr.getElementsByClassName('NavText')[2];
+        var cell = tr.insertCell();
+        cell.innerText=;
+        cell.align="center";
+        cell.className="NavText style1";
+        cell.className="NavText";
+    }
+    */
 }
 
 //这个函数用来判断当前页面是否是查看已修课程的成绩
@@ -50,6 +66,19 @@ function isGPAPage()
     {
         mf = mf.contentDocument;
         if ((mf.location.pathname === "/xsxk/studiedAction.do") || (mf.location.pathname === "/xsxk/studiedPageAction.do"))
+            return true;
+    }
+    return false;
+}
+
+//这个函数用来判断当前页面是否是学生选课页面
+function isSelectCoursePage()
+{
+    var mf = document.getElementsByName("mainFrame")[0];
+    if (mf !== undefined)
+    {
+        mf = mf.contentDocument;
+        if ((mf.location.pathname === "/xsxk/selectMianInitAction.do") || (mf.location.pathname === "/xsxk/swichAction.do"))
             return true;
     }
     return false;
@@ -264,12 +293,6 @@ chrome.runtime.onMessage.addListener
             (
                 function ()
                 {
-                    //alert(result[0].length);
-                    //alert(result[1].length);
-                    //alert(result[2].length);
-                    //alert(result[3].length);
-                    //alert(result[4].length);
-                    //alert(result[4]);
                     var res = Calc(result);
                     //就不回调了吧。。。
                     sendResponse({page:pageNum});
