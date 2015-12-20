@@ -41,21 +41,28 @@ function Patch()
         }
     }
     
+       
     //这部分用来在选课页面增加课程上课时间地点等信息
-    /*
     var mf = window.top.document.getElementsByName("mainFrame")[0];
-    if (mf !== undefined)
+    //
+    if ((mf !== undefined))
     {
-        mf = mf.contentDocument;
-        tr=mf.getElementsByTagName('tr')[2];
-        tr.getElementsByClassName('NavText')[2];
-        var cell = tr.insertCell();
-        cell.innerText=;
-        cell.align="center";
-        cell.className="NavText style1";
-        cell.className="NavText";
+        mf.onload = function()
+        {
+            //test
+            if (isGPAPage())
+            {
+                var mfc = mf.contentDocument;
+                var tr=mfc.getElementsByTagName('tr')[2];
+                //tr.getElementsByClassName('NavText')[2];
+                var cell = tr.insertCell();
+                cell.innerText="233333";
+                cell.align="center";
+                //cell.className="NavText style1";
+                cell.className="NavText";
+            }
+        }
     }
-    */
 }
 
 //这个函数用来判断当前页面是否是查看已修课程的成绩

@@ -45,43 +45,75 @@ function AddFunCalc()
 
 
 //用来查询课程信息的函数
-function Search()
+function Search1()
 {   
-    var xkxh = document.getElementById("xkxh").value;
-    var message = course[xkxh];
-    if (message === undefined)
-        document.getElementById("ms").innerText = "查询失败！";
-        //alert("查询失败！");
+    var xkxh1 = document.getElementById("xkxh1").value;
+    if (xkxh1 === "")
+        document.getElementById("ms1").innerText = "";
     else
-        document.getElementById("ms").innerText = "课程名称："+message[0]+"\n"+"任课教师："+message[1]+"\n"+"上课时间："+message[2]+"\n"+"上课地点："+message[3]+"\n"+"开课单位："+message[4];
-        //alert("课程名称："+message[0]+"\n"+"任课教师:"+message[1]+"\n"+"上课时间:"+message[2]+"\n"+"上课地点："+message[3]+"\n"+"开课单位："+message[4]);
+    {
+        var message = course1[xkxh1];
+        if (message === undefined)
+            document.getElementById("ms1").innerText = "查询失败！";
+        else
+            document.getElementById("ms1").innerText = "课程名称："+message[0]+"\n"+"任课教师："+message[1]+"\n"+"上课时间："+message[2]+"\n"+"上课地点："+message[3]+"\n"+"开课单位："+message[4];
+    }
 }
 
 //响应enter键
- function EnterHandler()
+ function EnterHandler1()
  {
     var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
     if (keyCode == 13)
     {
-        var G = document.getElementById("query");
+        var G = document.getElementById("query1");
         G.click()
     }
 }
 
+//用来查询课程信息的函数
+function Search2()
+{   
+    var xkxh2 = document.getElementById("xkxh2").value;
+    if (xkxh2 === "")
+        document.getElementById("ms2").innerText = "";
+    else
+    {
+        var message = course2[xkxh2];
+        if (message === undefined)
+            document.getElementById("ms2").innerText = "查询失败！";
+        else
+            document.getElementById("ms2").innerText = "课程名称："+message[0]+"\n"+"任课教师："+message[1]+"\n"+"上课时间："+message[2]+"\n"+"上课地点："+message[3]+"\n"+"开课单位："+message[4];
+    }
+}
 
+//响应enter键
+ function EnterHandler2()
+ {
+    var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+    if (keyCode == 13)
+    {
+        var G = document.getElementById("query2");
+        G.click()
+    }
+}
 
 function Load()
 {
 	var F = document.getElementById("sta");
 	F.onclick = AddFunCalc;
-	var G = document.getElementById("query");
-	G.onclick = Search;
-	var H = document.getElementById("xkxh");
-	H.onkeydown = EnterHandler;
+	var G = document.getElementById("query1");
+	G.onclick = Search1;
+	var H = document.getElementById("xkxh1");
+	H.onkeydown = EnterHandler1;
+	var I = document.getElementById("query2");
+	I.onclick = Search2;
+	var J = document.getElementById("xkxh2");
+	J.onkeydown = EnterHandler2;
 }
 window.onload = Load;
 
-var course =
+var course1 =
 {
 "0001":["中国近代外交史","李永胜","周2的1/2节","二主楼A411","教务处(9020)"],
 "0002":["中国近代外交史","李永胜","周4的3/4节","津南5D217","教务处(9020)"],
@@ -2471,4 +2503,7 @@ var course =
 "2386":["体育理论与训练6-5","指导教师","周7的14节","体育馆会议室","体育教学部(8001)"],
 "2387":["军事理论与军训2-2","指导教师","周7的14节","院系特殊教室8002","军事理论教研室(8002)"],
 "2388":["人与自然","赵勇","周4的11/12节","二主楼B103","天津大学(9998)"]
+};
+var course2=
+{
 };

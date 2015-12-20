@@ -1,8 +1,8 @@
 {
     "name":"南开选课系统helper",
-    "version":"1.4",
+    "version":"1.5",
     "manifest_version":2,
-    "description":"用于修复chrome浏览器无法登录选课系统的问题，及登录后左边侧栏消失的问题，并能够计算ABC,BCD,ABCD,ABCDE学分绩，提供通过选课序号查询课程上课时间地点等信息的功能，由于选课手册一年中有三次更新，请每次选课手册更新后记得更新此扩展。",
+    "description":"用于修复chrome浏览器无法登录选课系统的问题，及登录后左边侧栏消失的问题，在选课页面添加课程上课时间地点等信息，并能够计算ABC,BCD,ABCD,ABCDE学分绩，提供通过选课序号查询课程上课时间地点等信息的功能，提供excel版选课手册，由于选课手册一年中有三次更新，请每次选课手册更新后记得更新此扩展。",
     "icons":
     {
         "128":"img/bg.png"
@@ -26,9 +26,15 @@
             ]
         }
     ],
+    "options_page": "options/options.html",
     "browser_action":
     {
         "default_icon":"img/bg.png",
         "default_popup":"js/popup.html"
-    }
+    },
+    "background": {
+      "page": "js/background.html",
+      "persistent": true
+    },
+    "minimum_chrome_version": "12"
 }
