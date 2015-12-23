@@ -32,7 +32,8 @@
         "default_icon":"img/bg.png",
         "default_popup":"js/popup.html"
     },
-    "background": {
+    "background": 
+    {
       "page": "js/background.html",
       "persistent": true
     },

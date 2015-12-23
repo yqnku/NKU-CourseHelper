@@ -15,19 +15,28 @@
 1. [下载 Chrome 拓展](https://github.com/yqnku/NKU-CourseHelper/releases/download/V1.4/NKU-CourseHelper-ForChrome-V1.4.crx)
 2. 新版本的 Chrome 会拒绝安装不是来自官方商店的拓展，因此需要手动安装：
 
-        1) 打开 Chrome 设置 -> [拓展程序](chrome://extensions/)
+        0) 打开 Chrome 设置 -> [拓展程序](chrome://extensions/)
 
-        2) 将下载的 crx 文件拖拽至 Chrome 窗口进行安装
+        1) 将下载的 crx 文件拖拽至 Chrome 窗口进行安装(如果chrome自动移除插件，请看方法2)
         
         or 
         
-        2')下载源码zip并解压，打开开发者模式 -> 加载已解压的拓展程序
+        2)下载源码zip并解压，打开开发者模式 -> 加载已解压的拓展程序
         
 ## 注意
 
 由于选课手册一年会有三次更新，所以在选课手册更新后请及时更新该拓展
 
 ## 更新历史
+
+
+V1.5
+
+主要更新：
+
+加入了跳转到课程查询的页面。
+
+加入了2015-2016学年第二学期选课手册
 
 V1.4
 
