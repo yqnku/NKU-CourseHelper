@@ -26,6 +26,9 @@
 
 ![image](https://github.com/yqnku/NKU-CourseHelper/raw/master/img/example1.png)
 
+![image](https://github.com/yqnku/NKU-CourseHelper/raw/master/img/example2.png)
+![image](https://github.com/yqnku/NKU-CourseHelper/raw/master/img/example3.png)
+
 # 安装
 1. [下载 Chrome 拓展](https://github.com/yqnku/NKU-CourseHelper/releases)
 2. 新版本的 Chrome 会拒绝安装不是来自官方商店的拓展，因此需要手动安装：
