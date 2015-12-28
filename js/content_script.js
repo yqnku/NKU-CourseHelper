@@ -6,7 +6,6 @@
  ************************************************************************/
 
 'use strict';
-
 //这个函数用来修复选课系统的一些问题
 function Patch()
 {
@@ -20,6 +19,7 @@ function Patch()
         }
     }
 
+    
     //这部分用来修复登陆选课系统以后，左侧边栏的显示，需要把visibility参数由hidden改为visible
     var lf = window.top.document.getElementsByName("leftFrame")[0];
     if (lf !== undefined)
@@ -41,30 +41,95 @@ function Patch()
         }
     }
     
-    /*
-    //这部分用来在选课页面增加课程上课时间地点等信息
+    //这部分用来修复选课页面无法翻页的问题
+    //以及在选课页面增加课程上课时间地点等信息
     var mf = window.top.document.getElementsByName("mainFrame")[0];
-    //
-    if ((mf !== undefined))
-    {
-        mf.onload = function()
+    if (mf !== undefined)
+    {                 
+        mf.onload = function () 
         {
-            //test
-            
-            if (isGPAPage())
+            //
+            if (isSelectCoursePage()) 
             {
+                (
+                    function (d, script) 
+                    {
+                        script = d.createElement('script');
+                        script.type = 'text/javascript';
+                        script.onload = function () { };
+                        script.src = chrome.extension.getURL('/js/selectMianInitAction.js');
+                        d.getElementsByTagName('head')[0].appendChild(script);
+                    } 
+                    (mf.contentDocument)   
+                )
                 var mfc = mf.contentDocument;
-                var tr=mfc.getElementsByTagName('tr')[2];
-                //tr.getElementsByClassName('NavText')[2];
-                var cell = tr.insertCell();
-                cell.innerText="233333";
-                cell.align="center";
-                //cell.className="NavText style1";
-                cell.className="NavText";
+                var trs=mfc.getElementsByTagName('tr');
+                var tr = trs[3];
+                //如果是在已选课程页面下：
+                var tmp = tr.getElementsByTagName('td')[5];
+                if (tmp.innerText === "学分")
+                {
+                    //增加第一行的信息
+                    var forms = ["任课教师","上课时间","上课地点","开课单位"];
+                    for (var i = 0 ; i < 4 ; i++)
+                    {
+                        var cell = tr.insertCell();
+                        cell.innerText = forms[i];
+                        cell.align="center";
+                        cell.className="NavText style1";
+                    }
+                    //增加课程信息
+                    for (var i = 4; i < trs.length-1; i++)
+                    {
+                        var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
+                        var message = course[xkxh];
+                        if (message !== undefined)
+                        {
+                            var forms = [message[1],message[2],message[3],message[4]];
+                            for (var j = 0 ; j < 4 ; j++)
+                            {
+                                var cell = trs[i].insertCell();
+                                cell.innerText = forms[j];
+                                cell.align="center";
+                                cell.className="NavText";
+                            }   
+                        }                 
+                    }
+                }
+                else
+                {
+                    //对于计划内剩余名额和限选剩余名额
+                    //waiting to be modified
+                    //增加第一行的信息
+                    var forms = ["任课教师","上课时间","上课地点","开课单位"];
+                    for (var i = 0 ; i < 4 ; i++)
+                    {
+                        var cell = tr.insertCell();
+                        cell.innerText = forms[i];
+                        cell.align="center";
+                        cell.className="NavText style1";
+                    }
+                    //增加课程信息
+                    for (var i = 4; i < trs.length-1; i++)
+                    {
+                        var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
+                        var message = course[xkxh];
+                        if (message !== undefined)
+                        {
+                            var forms = [message[1],message[2],message[3],message[4]];
+                            for (var j = 0 ; j < 4 ; j++)
+                            {
+                                var cell = trs[i].insertCell();
+                                cell.innerText = forms[j];
+                                cell.align="center";
+                                cell.className="NavText";
+                            }   
+                        }                 
+                    }
+                }
             }
         }
     }
-    */
 }
 
 //这个函数用来判断当前页面是否是查看已修课程的成绩
@@ -220,12 +285,12 @@ function Show(arr)
         var name = "";
         for (var i = index+3 ; i < nameText.length ; i++)
             name += nameText[i];
-        var str = "欢迎你，"+name+"\n\n"+"你的ABC学分绩为：       "+arr[0].toFixed(2)+"\n"+"你的BCD学分绩为：       "+arr[1].toFixed(2)+"\n"+"你的ABCD学分绩为：    "+arr[2].toFixed(2)+"\n"+"你的ABCDE学分绩为： "+arr[3].toFixed(2);
+        var str = "欢迎你，"+name+"\n\n"+"你的ABC学分绩为："+arr[0].toFixed(2)+"\n"+"你的BCD学分绩为："+arr[1].toFixed(2)+"\n"+"你的ABCD学分绩为："+arr[2].toFixed(2)+"\n"+"你的ABCDE学分绩为："+arr[3].toFixed(2);
         alert(str);
     }
     catch (e)
     {
-        var str = "你的ABC学分绩为：       "+arr[0].toFixed(2)+"\n"+"你的BCD学分绩为：       "+arr[1].toFixed(2)+"\n"+"你的ABCD学分绩为：    "+arr[2].toFixed(2)+"\n"+"你的ABCDE学分绩为： "+arr[3].toFixed(2);
+        var str = "你的ABC学分绩为："+arr[0].toFixed(2)+"\n"+"你的BCD学分绩为："+arr[1].toFixed(2)+"\n"+"你的ABCD学分绩为："+arr[2].toFixed(2)+"\n"+"你的ABCDE学分绩为："+arr[3].toFixed(2);
         alert(str);
     }
     
