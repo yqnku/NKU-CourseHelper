@@ -32,7 +32,10 @@ function Patch()
             {
                 var px = 110 + 12 * i;
                 tmp.style["top"] = px+"px";
-                tmp.style["left"] = "5px";
+                if (window.navigator.userAgent.indexOf("Window") != -1)
+                    tmp.style["left"] = "15px";
+                else
+                    tmp.style["left"] = "5px";
                 if (i % 2 === 0)
                 {
                     tmp.style["visibility"] = "visible";
