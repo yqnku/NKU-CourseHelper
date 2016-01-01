@@ -65,69 +65,72 @@ function Patch()
                     } 
                     (mf.contentDocument)   
                 )
-                var mfc = mf.contentDocument;
-                var trs=mfc.getElementsByTagName('tr');
-                var tr = trs[3];
-                //如果是在已选课程页面下：
-                var tmp = tr.getElementsByTagName('td')[5];
-                if (tmp.innerText === "学分")
+                if (isSelectCourseTime())
                 {
-                    //增加第一行的信息
-                    var forms = ["任课教师","上课时间","上课地点","开课单位"];
-                    for (var i = 0 ; i < 4 ; i++)
+                    var mfc = mf.contentDocument;
+                    var trs=mfc.getElementsByTagName('tr');
+                    var tr = trs[3];
+                    //如果是在已选课程页面下：
+                    var tmp = tr.getElementsByTagName('td')[5];
+                    if (tmp.innerText === "学分")
                     {
-                        var cell = tr.insertCell();
-                        cell.innerText = forms[i];
-                        cell.align="center";
-                        cell.className="NavText style1";
-                    }
-                    //增加课程信息
-                    for (var i = 4; i < trs.length-1; i++)
-                    {
-                        var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
-                        var message = course[xkxh];
-                        if (message !== undefined)
+                        //增加第一行的信息
+                        var forms = ["任课教师","上课时间","上课地点","开课单位"];
+                        for (var i = 0 ; i < 4 ; i++)
                         {
-                            var forms = [message[1],message[2],message[3],message[4]];
-                            for (var j = 0 ; j < 4 ; j++)
-                            {
-                                var cell = trs[i].insertCell();
-                                cell.innerText = forms[j];
-                                cell.align="center";
-                                cell.className="NavText";
-                            }   
-                        }                 
-                    }
-                }
-                else
-                {
-                    //对于计划内剩余名额和限选剩余名额
-                    //waiting to be modified
-                    //增加第一行的信息
-                    var forms = ["任课教师","上课时间","上课地点","开课单位"];
-                    for (var i = 0 ; i < 4 ; i++)
-                    {
-                        var cell = tr.insertCell();
-                        cell.innerText = forms[i];
-                        cell.align="center";
-                        cell.className="NavText style1";
-                    }
-                    //增加课程信息
-                    for (var i = 4; i < trs.length-1; i++)
-                    {
-                        var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
-                        var message = course[xkxh];
-                        if (message !== undefined)
+                            var cell = tr.insertCell();
+                            cell.innerText = forms[i];
+                            cell.align="center";
+                            cell.className="NavText style1";
+                        }
+                        //增加课程信息
+                        for (var i = 4; i < trs.length-1; i++)
                         {
-                            var forms = [message[1],message[2],message[3],message[4]];
-                            for (var j = 0 ; j < 4 ; j++)
+                            var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
+                            var message = course[xkxh];
+                            if (message !== undefined)
                             {
-                                var cell = trs[i].insertCell();
-                                cell.innerText = forms[j];
-                                cell.align="center";
-                                cell.className="NavText";
-                            }   
-                        }                 
+                                var forms = [message[1],message[2],message[3],message[4]];
+                                for (var j = 0 ; j < 4 ; j++)
+                                {
+                                    var cell = trs[i].insertCell();
+                                    cell.innerText = forms[j];
+                                    cell.align="center";
+                                    cell.className="NavText";
+                                }   
+                            }                 
+                        }
+                    }
+                    else
+                    {
+                        //对于计划内剩余名额和限选剩余名额
+                        //waiting to be modified
+                        //增加第一行的信息
+                        var forms = ["任课教师","上课时间","上课地点","开课单位"];
+                        for (var i = 0 ; i < 4 ; i++)
+                        {
+                            var cell = tr.insertCell();
+                            cell.innerText = forms[i];
+                            cell.align="center";
+                            cell.className="NavText style1";
+                        }
+                        //增加课程信息
+                        for (var i = 4; i < trs.length-1; i++)
+                        {
+                            var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
+                            var message = course[xkxh];
+                            if (message !== undefined)
+                            {
+                                var forms = [message[1],message[2],message[3],message[4]];
+                                for (var j = 0 ; j < 4 ; j++)
+                                {
+                                    var cell = trs[i].insertCell();
+                                    cell.innerText = forms[j];
+                                    cell.align="center";
+                                    cell.className="NavText";
+                                }   
+                            }                 
+                        }
                     }
                 }
             }
@@ -159,6 +162,15 @@ function isSelectCoursePage()
             return true;
     }
     return false;
+}
+
+//这个函数用来判断现在的时间，以判断是否调用自动填充选课页面的信息
+function isSelectCourseTime()
+{
+    var date = new Date();
+    if ((date.getFullYear() === 2016) && (date.getMonth() <= 3))
+        return true;
+    else
 }
 
 //这个函数用来获取成绩页面的总页码数
