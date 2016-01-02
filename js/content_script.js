@@ -171,6 +171,7 @@ function isSelectCourseTime()
     if ((date.getFullYear() === 2016) && (date.getMonth() <= 3))
         return true;
     else
+        return false;
 }
 
 //这个函数用来获取成绩页面的总页码数
