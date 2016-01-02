@@ -1,10 +1,16 @@
-# NKU-CourseHelper
+#NKU CourseHelper For Chrome
 
-临时修复南开选课系统提示密码错误无法登录的问题, 如需安装，请往下看
+临时修复南开选课系统提示密码错误无法登录的问题, 如需安装，请往下看：
 
 针对近期出现的南开选课系统提示密码错误无法正常登录的问题，制作了 Chrome 拓展。
 
 该问题是由登录页面的 HTML 标签属性错误导致的，该 Chrome 拓展仅修复了 HTML 的问题，不会对用户信息做出任何修改或记录。
+
+该插件只能Chrome浏览器使用，其他可能兼容Chrome插件的浏览器有可能因为没有相应的API而导致部分功能无法使用。
+
+Firefox浏览器插件请点击[这里](https://github.com/Everything-in-NKU/Patch-for-Elective-System-of-NKU-FF)
+
+Safari插件仍在制作中…………
 
 #主要功能
 
@@ -51,7 +57,7 @@ V1.7（waiting for being published）
 
 主要更新：
 
-1.改进了插件页面，以及加入了在课表冲突情况下显示课表的超链接
+1.改进了插件页面，以及加入了在课表冲突情况下显示课表的超链接。
 
 V1.6
 
