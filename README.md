@@ -28,6 +28,7 @@ Safari插件仍在制作中…………
 
 7.计算ABC,BCD,ABCD,ABCDE学分绩
 
+8.本版本不包括抢课功能，需要抢课功能请移步[抢课插件](https://github.com/Everything-in-NKU/Patch-for-Elective-System-of-NKU)
 ##示例图片
 
 ![image](https://github.com/yqnku/NKU-CourseHelper/raw/master/img/example1.png)
