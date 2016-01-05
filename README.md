@@ -53,7 +53,7 @@ Safari插件仍在制作中…………
 
 ## 更新历史
 
-V1.7（waiting for being published）
+V1.7
 
 主要更新：
 
