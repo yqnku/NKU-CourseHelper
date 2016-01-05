@@ -94,6 +94,17 @@ function Patch()
                                 cell.align="center";
                                 cell.className="NavText";
                             }   
+                        }
+                        else
+                        {
+                            var forms = ["","","",""];
+                            for (var j = 0 ; j < 4 ; j++)
+                            {
+                                var cell = trs[i].insertCell();
+                                cell.innerText = forms[j];
+                                cell.align="center";
+                                cell.className="NavText";
+                            }   
                         }                 
                     }
                 }
