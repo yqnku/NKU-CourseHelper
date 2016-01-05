@@ -70,67 +70,31 @@ function Patch()
                     var mfc = mf.contentDocument;
                     var trs=mfc.getElementsByTagName('tr');
                     var tr = trs[3];
-                    //如果是在已选课程页面下：
                     var tmp = tr.getElementsByTagName('td')[5];
-                    if (tmp.innerText === "学分")
+                    var forms = ["任课教师","上课时间","上课地点","开课单位"];
+                    for (var i = 0 ; i < 4 ; i++)
                     {
-                        //增加第一行的信息
-                        var forms = ["任课教师","上课时间","上课地点","开课单位"];
-                        for (var i = 0 ; i < 4 ; i++)
-                        {
-                            var cell = tr.insertCell();
-                            cell.innerText = forms[i];
-                            cell.align="center";
-                            cell.className="NavText style1";
-                        }
-                        //增加课程信息
-                        for (var i = 4; i < trs.length-1; i++)
-                        {
-                            var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
-                            var message = course[xkxh];
-                            if (message !== undefined)
-                            {
-                                var forms = [message[1],message[2],message[3],message[4]];
-                                for (var j = 0 ; j < 4 ; j++)
-                                {
-                                    var cell = trs[i].insertCell();
-                                    cell.innerText = forms[j];
-                                    cell.align="center";
-                                    cell.className="NavText";
-                                }   
-                            }                 
-                        }
+                        var cell = tr.insertCell();
+                        cell.innerText = forms[i];
+                        cell.align="center";
+                        cell.className="NavText style1";
                     }
-                    else
+                    //增加课程信息
+                    for (var i = 4; i < trs.length-1; i++)
                     {
-                        //对于计划内剩余名额和限选剩余名额
-                        //waiting to be modified
-                        //增加第一行的信息
-                        var forms = ["任课教师","上课时间","上课地点","开课单位"];
-                        for (var i = 0 ; i < 4 ; i++)
+                        var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
+                        var message = course[xkxh];
+                        if (message !== undefined)
                         {
-                            var cell = tr.insertCell();
-                            cell.innerText = forms[i];
-                            cell.align="center";
-                            cell.className="NavText style1";
-                        }
-                        //增加课程信息
-                        for (var i = 4; i < trs.length-1; i++)
-                        {
-                            var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
-                            var message = course[xkxh];
-                            if (message !== undefined)
+                            var forms = [message[1],message[2],message[3],message[4]];
+                            for (var j = 0 ; j < 4 ; j++)
                             {
-                                var forms = [message[1],message[2],message[3],message[4]];
-                                for (var j = 0 ; j < 4 ; j++)
-                                {
-                                    var cell = trs[i].insertCell();
-                                    cell.innerText = forms[j];
-                                    cell.align="center";
-                                    cell.className="NavText";
-                                }   
-                            }                 
-                        }
+                                var cell = trs[i].insertCell();
+                                cell.innerText = forms[j];
+                                cell.align="center";
+                                cell.className="NavText";
+                            }   
+                        }                 
                     }
                 }
             }
