@@ -8,9 +8,7 @@
 
 该插件只能Chrome浏览器使用，其他可能兼容Chrome插件的浏览器有可能因为没有相应的API而导致部分功能无法使用。
 
-Firefox浏览器插件请点击[这里](https://github.com/Everything-in-NKU/Patch-for-Elective-System-of-NKU-FF)
-
-Safari插件仍在制作中…………
+Firefox,Safari浏览器插件以及手机端请点击[这里](https://github.com/Everything-in-NKU/Patch-for-Elective-System-of-NKU-FF/tree/master/Greasemonkey)
 
 #主要功能
 
