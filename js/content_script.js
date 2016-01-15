@@ -188,6 +188,9 @@ function SaveToArray(arr)
     //8i+2----课程名称,8i+3------课程类型,8i+4------课程成绩,8i+5------课程学分
     for (var i = 1 ; i <= length ; i++)
     {
+        //如果成绩为“通过”等，不参与计算学分绩
+        if (isNaN(array[8*i+4].innerText))
+            continue;
         if (array[8*i+3].innerHTML.indexOf("A") !== -1)
         {
             arr[0].push(array[8*i+2].innerHTML);
