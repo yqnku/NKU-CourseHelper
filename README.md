@@ -18,15 +18,20 @@ Firefox,Safari浏览器插件以及手机端请点击[这里](https://github.com
 
 3.修复选课页面无法点击上下页的问题
 
-4.在选课页面添加课程上课时间地点等信息
+4.修复课程冲突时无法显示课表的问题
 
-5.提供通过选课序号查询课程上课时间地点等信息的功能
+5.在选课页面添加课程上课时间地点等信息
 
-6.提供excel版选课手册
+6.提供通过选课序号查询课程上课时间地点等信息的功能
 
-7.计算ABC,BCD,ABCD,ABCDE学分绩
+7.提供excel版选课手册
 
-8.本版本不包括抢课功能，需要抢课功能请移步[抢课插件](https://github.com/Everything-in-NKU/Patch-for-Elective-System-of-NKU)
+8.计算ABC,BCD,ABCD,ABCDE学分绩
+
+9.本版本不包括抢课功能，需要抢课功能请移步[抢课插件](https://github.com/Everything-in-NKU/Patch-for-Elective-System-of-NKU)
+
+10.本版本不包括评教功能，需要评教功能请移步[一键评教](https://github.com/yqnku/One-Key-To-Evaluation)
+
 ##示例图片
 
 ![image](https://github.com/yqnku/NKU-CourseHelper/raw/master/img/example1.png)
@@ -51,12 +56,21 @@ Firefox,Safari浏览器插件以及手机端请点击[这里](https://github.com
 由于选课手册一年会有三次更新，所以在选课手册更新后请及时更新该拓展。我一直都想加入查看某个课程多少学分的功能，无奈一直找不到相应的数据，如果大家谁有这样的数据的话麻烦发一份给我邮箱(xiqian013@live.com),以及有什么功能性的建议，bug的反馈等等，也欢迎发送到我邮箱(xiqian013@live.com)
 
 ## 更新历史
+V1.9
+
+主要更新：
+
+1.修复课程冲突时无法显示课表的问题
+
+2.自动清除验证码的值
+
+3.修复了一些Bug。
 
 V1.8
 
 主要更新：
 
-1.Bug修复，修复了选课系统成绩中显示“通过”时学分绩计算的问题。
+1.Bug修复，修复了选课系统成绩中显示“通过”或“未评价”时学分绩计算的问题。
 
 V1.7
 

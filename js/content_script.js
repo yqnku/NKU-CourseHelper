@@ -18,7 +18,11 @@ function Patch()
             document.getElementsByName(forms[i])[0].id = forms[i];
         }
     }
-
+    //登录时将验证码内容设为空
+    if(document.getElementsByName(forms[0])[0] !== undefined)
+    {
+        document.getElementsByName(forms[0])[0].value = "";
+    }
     
     //这部分用来修复登陆选课系统以后，左侧边栏的显示，需要把visibility参数由hidden改为visible
     var lf = window.top.document.getElementsByName("leftFrame")[0];
@@ -109,6 +113,26 @@ function Patch()
                     }
                 }
             }
+            
+            if(isKebiao())
+            {
+                var mfcc = mf.contentDocument;
+                var center=mfcc.getElementsByTagName('center')[0];
+                var font1 = document.createElement('font');
+                var font2 = document.createElement('font');
+                font1.className='RedText';
+                font2.className='RedText';
+                var a1 = document.createElement('a');
+                var a2 = document.createElement('a');
+                a1.innerText = '生成课表（大学期）';
+                a1.href = "selectedAction.do?operation=kebiao";
+                a2.innerText = '生成课表（小学期）';
+                a2.href = "selectedAction.do?operation=kebiao1";
+                center.appendChild(font1);
+                center.appendChild(font2);
+                font1.appendChild(a1);
+                font2.appendChild(a2);
+            }
         }
     }
 }
@@ -147,6 +171,27 @@ function isSelectCourseTime()
         return true;
     else
         return false;
+}
+
+//这个函数用来判断当前页面是否是已选课程页面，以及课程是否冲突
+function isKebiao()
+{
+    var mf = document.getElementsByName("mainFrame")[0];
+    if (mf !== undefined)
+    {
+        mf = mf.contentDocument;
+        if ((mf.location.pathname === "/xsxk/selectedAction.do"))
+        {
+            var centerList = mf.getElementsByTagName("center");
+            if (centerList.length === 1)
+                return false;
+            if (centerList[1].innerText.indexOf('冲突') === -1)
+                return false;
+            centerList[1].innerText = "";
+            return true;
+        }
+    }
+    return false;   
 }
 
 //这个函数用来获取成绩页面的总页码数
