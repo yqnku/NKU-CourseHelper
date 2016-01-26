@@ -50,6 +50,8 @@ function Patch()
     
     //这部分用来修复选课页面无法翻页的问题
     //以及在选课页面增加课程上课时间地点等信息
+    //修复课程冲突时无法生成课表的问题
+    //修复无法评教的问题
     var mf = window.top.document.getElementsByName("mainFrame")[0];
     if (mf !== undefined)
     {                 
@@ -58,6 +60,7 @@ function Patch()
             //
             if (isSelectCoursePage()) 
             {
+                //用来修复选课页面无法翻页的问题
                 (
                     function (d, script) 
                     {
@@ -69,6 +72,7 @@ function Patch()
                     } 
                     (mf.contentDocument)   
                 )
+                //在选课页面增加课程上课时间地点等信息
                 if (isSelectCourseTime())
                 {
                     var mfc = mf.contentDocument;
@@ -113,7 +117,7 @@ function Patch()
                     }
                 }
             }
-            
+            //修复课程冲突时无法生成课表的问题
             if(isKebiao())
             {
                 var mfcc = mf.contentDocument;
@@ -132,6 +136,16 @@ function Patch()
                 center.appendChild(font2);
                 font1.appendChild(a1);
                 font2.appendChild(a2);
+            }
+            //修复无法评教的问题
+            if(isPingjiao())
+            {
+                var mfccc = mf.contentDocument;
+                var opinion = mfccc.getElementsByName('opinion');
+                if (opinion.length !== 0)
+                {
+                    opinion[0].id = 'opinion';
+                }
             }
         }
     }
@@ -192,6 +206,21 @@ function isKebiao()
         }
     }
     return false;   
+}
+
+//这个函数用来判断当前页面是否是评教页面
+function isPingjiao()
+{
+    var mf = document.getElementsByName("mainFrame")[0];
+    if (mf !== undefined)
+    {
+        mf = mf.contentDocument;
+        if ((mf.location.pathname === "/evaluate/stdevatea/queryTargetAction.do"))
+        {
+            return true;
+        }
+    }
+    return false; 
 }
 
 //这个函数用来获取成绩页面的总页码数

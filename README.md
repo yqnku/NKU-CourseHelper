@@ -20,17 +20,19 @@ Firefox,Safari浏览器插件以及手机端请点击[这里](https://github.com
 
 4.修复课程冲突时无法显示课表的问题
 
-5.在选课页面添加课程上课时间地点等信息
+5.修复无法评教的问题
 
-6.提供通过选课序号查询课程上课时间地点等信息的功能
+6.在选课页面添加课程上课时间地点等信息
 
-7.提供excel版选课手册
+7.提供通过选课序号查询课程上课时间地点等信息的功能
 
-8.计算ABC,BCD,ABCD,ABCDE学分绩
+8.提供excel版选课手册
 
-9.本版本不包括抢课功能，需要抢课功能请移步[抢课插件](https://github.com/Everything-in-NKU/Patch-for-Elective-System-of-NKU)
+9.计算ABC,BCD,ABCD,ABCDE学分绩
 
-10.本版本不包括评教功能，需要评教功能请移步[一键评教](https://github.com/yqnku/One-Key-To-Evaluation)
+10.本版本不包括抢课功能，需要抢课功能请移步[抢课插件](https://github.com/Everything-in-NKU/Patch-for-Elective-System-of-NKU)
+
+11.本版本不包括评教功能，需要评教功能请移步[一键评教](https://github.com/yqnku/One-Key-To-Evaluation)
 
 ##示例图片
 
