@@ -1,0 +1,73 @@
+*{
+    margin:0px;
+    padding:0px;
+    font-size: 18px;
+}
+body{
+    font-family: Georgia;
+    text-shadow: 0 1px 0 rgba(255,255,255,.50);
+    color: #262626;
+    background: url(../img/wood-bg.jpg);
+    width:420px;
+    margin:10px;
+}
+input{
+    margin:5px;
+}
+.Butt{
+    color:#000000;
+}
+
+.lavalamp {
+    position: relative;
+    border: 1px solid #d6d6d6;
+    background: #fff;
+    padding: 10px;
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+    -webkit-border-radius : 5px;
+    background : -webkit-gradient(linear, left top, left bottom, from(rgb(240,240,240)), to(rgb(204,204,204)));
+    background : -moz-gradient(linear, left top, left bottom, from(rgb(240,240,240)), to(rgb(204,204,204)));
+    height: 25px;  
+}
+
+.lavalamp a{
+    font-size: 15px;
+    color:#FFFFFF; 
+    text-shadow: 0 -1px 0 rgba(0,0,0,.40);
+    text-decoration:none; 
+}
+
+.cyan {
+	background : rgb(64,181,197);
+	background : -webkit-gradient(linear, left top, left bottom, from(rgb(64,181,197)), to(rgb(7,165,187)));
+	background : -moz-gradient(linear, left top, left bottom, from(rgb(64,181,197)), to(rgb(7,165,187)));
+	border: 1px solid #2f8893;
+}
+
+.floatr {
+    position: absolute;
+    top: 10px;
+    z-index: 50;
+    width: 20px;
+    height: 22px;
+    -webkit-border-radius : 4px;
+    background : rgba(0,0,0,.20);
+    -webkit-transition: all .4s ease-in-out;
+}
+ul {
+    margin: 0;
+    padding: 0;
+    z-index: 300;
+    position: absolute;
+}
+
+ul li {
+    list-style: none;
+    float:left;
+    text-align: center;
+}
+
+ul li a {
+    padding: 0 5px;
+    text-align: center;
+}

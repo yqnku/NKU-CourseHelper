@@ -71,18 +71,7 @@ function Patch()
                         d.getElementsByTagName('head')[0].appendChild(script);
                     } 
                     (mf.contentDocument)   
-                )
-                (
-                    function (d, script) 
-                    {
-                        script = d.createElement('script');
-                        script.type = 'text/javascript';
-                        script.onload = function () { };
-                        script.src = chrome.extension.getURL('/js/jquery-1.4.1.min.js');
-                        d.getElementsByTagName('head')[0].appendChild(script);
-                    } 
-                    (mf.contentDocument)   
-                )
+                )                
                 //在选课页面增加课程上课时间地点等信息
                 if (isSelectCourseTime())
                 {
@@ -101,14 +90,6 @@ function Patch()
                     //增加课程信息
                     for (var i = 4; i < trs.length-1; i++)
                     {
-                        $.getJSON
-                        (
-                            "course.json",
-                            function(course)
-                            {
-                                alert(course["0002"]);
-                            }
-                        )
                         var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
                         var message = course[xkxh];
                         if (message !== undefined)
@@ -398,8 +379,7 @@ chrome.runtime.onMessage.addListener
                 {
                     GoToPage(1);                    
                 },
-                500
-                
+                500               
             );
             setTimeout
             (
@@ -455,7 +435,6 @@ chrome.runtime.onMessage.addListener
                 function ()
                 {
                     var res = Calc(result);
-                    //就不回调了吧。。。
                     sendResponse({page:pageNum});
                     Show(res);
                 },
@@ -470,8 +449,6 @@ chrome.runtime.onMessage.addListener
 );
 
 window.onload = Patch;
-
-
 
 var course=
 {

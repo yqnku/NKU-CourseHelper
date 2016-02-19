@@ -14,7 +14,8 @@
     ],
     "web_accessible_resources": 
     [
-        "/js/selectMianInitAction.js"
+        "/js/selectMianInitAction.js",
+        "/js/course.json"
     ],
     "content_scripts":
     [
@@ -34,11 +35,11 @@
     "browser_action":
     {
         "default_icon":"img/bg.png",
-        "default_popup":"js/popup.html"
+        "default_popup":"popup.html"
     },
     "background": 
     {
-      "page": "js/background.html",
+      "page": "background.html",
       "persistent": true
     },
     "minimum_chrome_version": "12"
