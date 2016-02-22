@@ -11,6 +11,22 @@ body{
     width:420px;
     margin:10px;
 }
+
+a:link {
+	text-decoration: none;
+	color: #00C;
+}
+a:visited {
+	text-decoration: none;
+	color: #00C;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
 input{
     margin:5px;
     border: 3px solid #dedede;
