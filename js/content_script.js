@@ -265,6 +265,9 @@ function SaveToArray(arr)
         //如果成绩为“通过”等，不参与计算学分绩
         if (isNaN(array[8*i+4].innerText))
             continue;
+        //如果成绩小于60，则按照重修成绩60分计算
+        if (parseInt(array[8*i+4].innerText) < 60)
+            array[8*i+4].innerHTML = '60';
         if (array[8*i+3].innerHTML.indexOf("A") !== -1)
         {
             arr[0].push(array[8*i+2].innerHTML);
@@ -353,12 +356,12 @@ function Show(arr)
         var name = "";
         for (var i = index+3 ; i < nameText.length ; i++)
             name += nameText[i];
-        var str = "欢迎你，"+name+"\n\n"+"你的ABC学分绩为："+arr[0].toFixed(2)+"\n"+"你的BCD学分绩为："+arr[1].toFixed(2)+"\n"+"你的ABCD学分绩为："+arr[2].toFixed(2)+"\n"+"你的ABCDE学分绩为："+arr[3].toFixed(2)+"\n\n    "+"学分绩计算可能因为网络问题或其他原因而计算错误，请核对该插件计算出来的ABC学分绩与系统的ABC学分绩是否匹配来判断，如果出错请重新计算学分绩！";
+        var str = "欢迎你，"+name+"\n\n"+"你的ABC学分绩为："+arr[0].toFixed(2)+"\n"+"你的BCD学分绩为："+arr[1].toFixed(2)+"\n"+"你的ABCD学分绩为："+arr[2].toFixed(2)+"\n"+"你的ABCDE学分绩为："+arr[3].toFixed(2)+"\n\n    "+"学分绩计算可能因为网络问题或其他原因而计算错误，请核对该插件计算出来的ABC学分绩与系统的ABC学分绩是否匹配来判断，如果出错请重新计算学分绩（重修成绩按60计算）！";
         alert(str);
     }
     catch (e)
     {
-        var str = "你的ABC学分绩为："+arr[0].toFixed(2)+"\n\n    "+"你的BCD学分绩为："+arr[1].toFixed(2)+"\n"+"你的ABCD学分绩为："+arr[2].toFixed(2)+"\n"+"你的ABCDE学分绩为："+arr[3].toFixed(2)+"\n"+"学分绩计算可能因为网络问题或其他原因而计算错误，请核对该插件计算出来的ABC学分绩与系统的ABC学分绩是否匹配来判断，如果出错请重新计算学分绩！";
+        var str = "你的ABC学分绩为："+arr[0].toFixed(2)+"\n\n    "+"你的BCD学分绩为："+arr[1].toFixed(2)+"\n"+"你的ABCD学分绩为："+arr[2].toFixed(2)+"\n"+"你的ABCDE学分绩为："+arr[3].toFixed(2)+"\n"+"学分绩计算可能因为网络问题或其他原因而计算错误，请核对该插件计算出来的ABC学分绩与系统的ABC学分绩是否匹配来判断，如果出错请重新计算学分绩（重修成绩按60计算）！";
         alert(str);
     }
     
