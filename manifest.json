@@ -14,8 +14,7 @@
     ],
     "web_accessible_resources": 
     [
-        "/js/selectMianInitAction.js",
-        "/js/course.json"
+        "/js/selectMianInitAction.js"
     ],
     "content_scripts":
     [
@@ -27,6 +26,7 @@
             "run_at":"document_start",
             "js":
             [
+                "js/course.js",
                 "js/content_script.js"
             ]
         }

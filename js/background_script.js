@@ -42,7 +42,6 @@ function AddFunCalc()
 	);	
 }
 //课程信息
-var course;
 
 //用来查询课程信息的函数
 function Search()
@@ -74,13 +73,5 @@ $(document).ready
         $("#sta").click(AddFunCalc);
         $("#query").click(Search);
         $("#xkxh").keydown(EnterHandler);
-        $.getJSON
-        (
-            "js/course.json",
-            function(data)
-            {
-                course = data;
-            }
-        );
     }
 );
