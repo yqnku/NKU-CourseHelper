@@ -380,13 +380,14 @@ chrome.runtime.onMessage.addListener
         if (isGPAPage())
         {
             //用来保存五类课的课程名称课程成绩和学分
+            sendResponse({error:"noerror"});
             var result = [[],[],[],[],[]];
             var pageNum = GetPageNum();
             setTimeout
             (
                 function ()
                 {
-                    GoToPage(1);                    
+                    GoToPage(1);
                 },
                 500               
             );
@@ -444,16 +445,16 @@ chrome.runtime.onMessage.addListener
                 function ()
                 {
                     var res = Calc(result);
-                    sendResponse({page:pageNum});
+                    //sendResponse({page:pageNum});
                     Show(res);
                 },
                 3500
-            );  
+            );
         }
         else
         {
             sendResponse({error:"error"});
-        }       
+        }
     }
 );
 
