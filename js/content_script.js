@@ -187,7 +187,7 @@ function isSelectCoursePage()
 function isSelectCourseTime()
 {
     var date = new Date();
-    if ((date.getFullYear() === 2016) && (date.getMonth() <= 3))
+    if ((date.getFullYear() === 2016) && (date.getMonth() <= 10))
         return true;
     else
         return false;
@@ -362,12 +362,12 @@ function Show(arr)
         var name = "";
         for (var i = index+3 ; i < nameText.length ; i++)
             name += nameText[i];
-        var str = "欢迎你，"+name+"\n\n"+"你的ABC学分绩为："+arr[0].toFixed(2)+"\n"+"你的BCD学分绩为："+arr[1].toFixed(2)+"\n"+"你的ABCD学分绩为："+arr[2].toFixed(2)+"\n"+"你的ABCDE学分绩为："+arr[3].toFixed(2)+"\n\n    "+"学分绩计算可能因为网络问题或其他原因而计算错误，请核对该插件计算出来的ABC学分绩与系统的ABC学分绩是否匹配来判断，如果出错请重新计算学分绩（重修成绩按60计算）！";
+        var str = "欢迎你，"+name+"\n\n"+"你的ABC学分绩为："+arr[0].toFixed(3)+"\n"+"你的BCD学分绩为："+arr[1].toFixed(3)+"\n"+"你的ABCD学分绩为："+arr[2].toFixed(3)+"\n"+"你的ABCDE学分绩为："+arr[3].toFixed(3)+"\n\n    "+"学分绩计算可能因为网络问题或其他原因而计算错误，请核对该插件计算出来的ABC学分绩与系统的ABC学分绩是否匹配来判断，如果出错请重新计算学分绩（重修成绩按60计算）！";
         alert(str);
     }
     catch (e)
     {
-        var str = "你的ABC学分绩为："+arr[0].toFixed(2)+"\n\n    "+"你的BCD学分绩为："+arr[1].toFixed(2)+"\n"+"你的ABCD学分绩为："+arr[2].toFixed(2)+"\n"+"你的ABCDE学分绩为："+arr[3].toFixed(2)+"\n"+"学分绩计算可能因为网络问题或其他原因而计算错误，请核对该插件计算出来的ABC学分绩与系统的ABC学分绩是否匹配来判断，如果出错请重新计算学分绩（重修成绩按60计算）！";
+        var str = "你的ABC学分绩为："+arr[0].toFixed(3)+"\n\n    "+"你的BCD学分绩为："+arr[1].toFixed(3)+"\n"+"你的ABCD学分绩为："+arr[2].toFixed(3)+"\n"+"你的ABCDE学分绩为："+arr[3].toFixed(3)+"\n"+"学分绩计算可能因为网络问题或其他原因而计算错误，请核对该插件计算出来的ABC学分绩与系统的ABC学分绩是否匹配来判断，如果出错请重新计算学分绩（重修成绩按60计算）！";
         alert(str);
     }
     
