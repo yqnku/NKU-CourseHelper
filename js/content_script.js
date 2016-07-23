@@ -79,8 +79,8 @@ function Patch()
                     var trs=mfc.getElementsByTagName('tr');
                     var tr = trs[3];
                     var tmp = tr.getElementsByTagName('td')[5];
-                    var forms = ["任课教师","上课时间","上课地点","开课单位"];
-                    for (var i = 0 ; i < 4 ; i++)
+                    var forms = ["任课教师","上课时间","起止周次","上课地点","开课单位"];
+                    for (var i = 0 ; i < 5 ; i++)
                     {
                         var cell = tr.insertCell();
                         cell.innerText = forms[i];
@@ -91,11 +91,24 @@ function Patch()
                     for (var i = 4; i < trs.length-1; i++)
                     {
                         var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
+                        //TODO 将校区改为八里台和津南
+                        var place = trs[i].getElementsByTagName('td')[6];
+                        if (place !== undefined)
+                        {
+                            if (place.innerText === "校本部")
+                            {
+                                place.innerText = "八里台";
+                            }
+                            else if (place.innerText === "")
+                            {
+                                place.innerText = "津南";
+                            }
+                        }
                         var message = course[xkxh];
                         if (message !== undefined)
                         {
-                            var forms = [message[1],message[2],message[3],message[4]];
-                            for (var j = 0 ; j < 4 ; j++)
+                            var forms = [message[1],message[2],message[3],message[4],message[5]];
+                            for (var j = 0 ; j < 5 ; j++)
                             {
                                 var cell = trs[i].insertCell();
                                 cell.innerText = forms[j];
@@ -106,7 +119,7 @@ function Patch()
                         else
                         {
                             var forms = ["","","",""];
-                            for (var j = 0 ; j < 4 ; j++)
+                            for (var j = 0 ; j < 5 ; j++)
                             {
                                 var cell = trs[i].insertCell();
                                 cell.innerText = forms[j];
