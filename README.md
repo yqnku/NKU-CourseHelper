@@ -43,7 +43,10 @@ Firefox,Safari浏览器插件以及手机端请点击[这里](https://github.com
 
 # 安装
 1. [下载 Chrome 拓展](https://github.com/yqnku/NKU-CourseHelper/releases)
-2. 新版本的 Chrome 会拒绝安装不是来自官方商店的拓展，因此需要手动安装：
+
+也可通过[Chrome应用商店下载](https://chrome.google.com/webstore/detail/%E5%8D%97%E5%BC%80%E9%80%89%E8%AF%BE%E7%B3%BB%E7%BB%9Fhelper/fafmabciiflcglhmcdbhbgenngacdmdb?utm_source=chrome-ntp-icon)
+
+2. 新版本的 Chrome 会拒绝安装不是来自官方商店的拓展(若是商店里下载安装可跳过这步)，因此需要手动安装：
 
         0) 打开 Chrome 设置 -> 拓展程序（或在地址栏中输入以下链接 chrome://extensions/）
 
