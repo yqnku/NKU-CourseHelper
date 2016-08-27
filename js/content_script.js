@@ -26,13 +26,13 @@ function addID()
 //二值化图像，用于识别验证码
 function binaryzationImageData(imgData)
 {
-    for (var i=0 ; i<imgData.width * imgData.height ; i++)
+    for (var i = 0 ; i < imgData.width * imgData.height ; i++)
     {
-        var r = imgData.data[i*4+0];
-        var g = imgData.data[i*4+1];
-        var b = imgData.data[i*4+2];
+        var r = imgData.data[i * 4 + 0];
+        var g = imgData.data[i * 4 + 1];
+        var b = imgData.data[i * 4 + 2];
         var gray = 0.299 * r + 0.587 * g + 0.114 * b;
-        if(gray<=130)
+        if(gray <= 130)
         {
             gray = 0;
         }
@@ -40,11 +40,10 @@ function binaryzationImageData(imgData)
         {
             gray = 255;
         }
-        imgData.data[i*4+0] = imgData.data[i*4+1] = imgData.data[i*4+2] = gray;
+        imgData.data[i * 4 + 0] = imgData.data[i * 4 + 1] = imgData.data[i * 4 + 2] = gray;
     }
     return imgData;
 }
-
 
 //将图片颜色矩阵进行转置，并将255映射为1，返回长度为1750的数组
 function transformImageData(imgData)
@@ -62,7 +61,6 @@ function transformImageData(imgData)
         }
     }
     return array;
-
 }
 
 //判断图像第i列是否有0,black
@@ -230,13 +228,9 @@ function fillValid()
     }
 }
 
-//这个函数用来修复选课系统的一些问题
-function Patch()
+//这部分用来修复登陆选课系统以后，左侧边栏的显示，需要把visibility参数由hidden改为visible
+function leftFrameVisible()
 {
-    addID();
-    fillValid();
-    
-    //这部分用来修复登陆选课系统以后，左侧边栏的显示，需要把visibility参数由hidden改为visible
     var lf = window.top.document.getElementsByName("leftFrame")[0];
     if (lf !== undefined)
     {
@@ -259,126 +253,208 @@ function Patch()
             }
         }
     }
-    
-    //这部分用来修复选课页面无法翻页的问题
-    //以及在选课页面增加课程上课时间地点等信息
-    //修复课程冲突时无法生成课表的问题
-    //修复无法评教的问题
+}
+
+//修复选课时无法翻页的问题
+function patchForPage(mfc)
+{
+    var script = mfc.createElement('script');
+    script.type = 'text/javascript';
+    script.onload = function () { };
+    script.src = chrome.extension.getURL('/js/selectMianInitAction.js');
+    mfc.getElementsByTagName('head')[0].appendChild(script);
+}
+
+//这个函数用来判断当前页面是否是学生选课页面
+function isSelectCoursePage(mfc)
+{
+    if ((mfc.location.pathname === "/xsxk/selectMianInitAction.do") || (mfc.location.pathname === "/xsxk/swichAction.do"))
+    {
+        return true;
+    }
+    return false;
+}
+
+//这个函数用来判断现在的时间，以判断是否调用自动填充选课页面的信息
+function isSelectCourseTime()
+{
+    var date = new Date();
+    if ((date.getFullYear() === year) && (date.getMonth() <= month))
+        return true;
+    else
+        return false;
+}
+
+//这个函数用来判断当前页面是否是已选课程页面，以及课程是否冲突
+function isKebiao(mfc)
+{
+    if ((mfc.location.pathname === "/xsxk/selectedAction.do"))
+    {
+        var centerList = mfc.getElementsByTagName("center");
+        if (centerList.length === 1)
+            return false;
+        if (centerList[1].innerText.indexOf('冲突') === -1)
+            return false;
+        centerList[1].innerText = "";
+        return true;
+    }
+    return false;   
+}
+
+//这个函数用来判断当前页面是否是评教页面
+function isPingjiao(mfc)
+{
+    if ((mfc.location.pathname === "/evaluate/stdevatea/queryTargetAction.do"))
+    {
+        return true;
+    }
+    return false; 
+}
+
+//修改限选剩余名额和计划内剩余名额的按钮宽度
+function changeWidth(mfc)
+{
+    var btn = mfc.getElementsByName('xuanke');
+    if (btn[1] !== undefined)
+        btn[1].style.width = "110px";
+    if (btn[2] !== undefined)
+        btn[2].style.width = "95px";
+}
+
+function addCourseClass(mfc,trs)
+{
+    var tr = trs[3];
+    var forms = ["任课教师","上课时间","起止周次","上课地点","开课单位"];
+    for (var i = 0 ; i < 5 ; i++)
+    {
+        var cell = tr.insertCell();
+        cell.innerText = forms[i];
+        cell.align="center";
+        cell.className="NavText style1";
+    }
+}
+
+//将上课地点显示为八里台或者津南
+function changePlaceName(trs,i)
+{
+    var place = trs[i].getElementsByTagName('td')[6];
+    if (place !== undefined)
+    {
+        if (place.innerText === "校本部")
+        {
+            place.innerText = "八里台";
+        }
+        else if (place.innerText === "")
+        {
+            place.innerText = "津南";
+        }
+    }
+}
+
+//增加选课中的课程信息
+function addInfo(trs,i)
+{
+    var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
+    var message = course[xkxh];
+    if (message !== undefined)
+    {
+        var forms = [message[1],message[2],message[3],message[4],message[5]];
+        for (var j = 0 ; j < 5 ; j++)
+        {
+            var cell = trs[i].insertCell();
+            cell.innerText = forms[j];
+            cell.align = "center";
+            cell.className = "NavText";
+        }   
+    }
+    else
+    {
+        var forms = ["","","","",""];
+        for (var j = 0 ; j < 5 ; j++)
+        {
+            var cell = trs[i].insertCell();
+            cell.innerText = forms[j];
+            cell.align="center";
+            cell.className="NavText";
+        }   
+    }
+}
+
+//添加课程信息
+function addCourseInformation(mfc)
+{
+    var trs=mfc.getElementsByTagName('tr');
+    addCourseClass(mfc,trs);
+    for (var i = 4; i < trs.length-1; i++)
+    {
+        changePlaceName(trs,i);
+        addInfo(trs,i);
+    }
+    changeWidth(mfc); 
+}
+
+//修复课程冲突不能显示课表的问题
+function patchForKebiao(mfc)
+{
+    var center=mfc.getElementsByTagName('center')[0];
+    var font1 = document.createElement('font');
+    var font2 = document.createElement('font');
+    font1.className='RedText';
+    font2.className='RedText';
+    var a1 = document.createElement('a');
+    var a2 = document.createElement('a');
+    a1.innerText = '生成课表（大学期）';
+    a1.href = "selectedAction.do?operation=kebiao";
+    a2.innerText = '生成课表（小学期）';
+    a2.href = "selectedAction.do?operation=kebiao1";
+    center.appendChild(font1);
+    center.appendChild(font2);
+    font1.appendChild(a1);
+    font2.appendChild(a2);
+}
+
+//修复无法评教的问题
+function patchForPingjiao(mfc)
+{
+    var opinion = mfc.getElementsByName('opinion');
+    if (opinion.length !== 0)
+    {
+        opinion[0].id = 'opinion';
+    }
+}
+
+//用于修复Mainframe中的一些问题
+function patchForMF()
+{
+    var mf = window.top.document.getElementsByName("mainFrame")[0];
+    var mfc = mf.contentDocument;
+    if (isSelectCoursePage(mfc)) 
+    {
+        patchForPage(mfc);
+        if (isSelectCourseTime())
+        {
+            addCourseInformation(mfc);
+        }
+    }
+    if(isKebiao(mfc))
+    {
+        patchForKebiao(mfc);
+    }
+    if(isPingjiao(mfc))
+    {
+        patchForPingjiao(mfc);
+    }
+}
+//用来修复选课系统的一些问题
+function Patch()
+{
+    addID();
+    fillValid();
+    leftFrameVisible();
     var mf = window.top.document.getElementsByName("mainFrame")[0];
     if (mf !== undefined)
     {                 
-        mf.onload = function () 
-        {
-            //
-            if (isSelectCoursePage()) 
-            {
-                //用来修复选课页面无法翻页的问题
-                (
-                    function (d, script) 
-                    {
-                        script = d.createElement('script');
-                        script.type = 'text/javascript';
-                        script.onload = function () { };
-                        script.src = chrome.extension.getURL('/js/selectMianInitAction.js');
-                        d.getElementsByTagName('head')[0].appendChild(script);
-                    } 
-                    (mf.contentDocument)   
-                )                
-                //在选课页面增加课程上课时间地点等信息
-                if (isSelectCourseTime())
-                {
-                    var mfc = mf.contentDocument;
-                    var trs=mfc.getElementsByTagName('tr');
-                    var tr = trs[3];
-                    var tmp = tr.getElementsByTagName('td')[5];
-                    var forms = ["任课教师","上课时间","起止周次","上课地点","开课单位"];
-                    for (var i = 0 ; i < 5 ; i++)
-                    {
-                        var cell = tr.insertCell();
-                        cell.innerText = forms[i];
-                        cell.align="center";
-                        cell.className="NavText style1";
-                    }
-                    //增加课程信息
-                    for (var i = 4; i < trs.length-1; i++)
-                    {
-                        var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
-                        //TODO 将校区改为八里台和津南
-                        var place = trs[i].getElementsByTagName('td')[6];
-                        if (place !== undefined)
-                        {
-                            if (place.innerText === "校本部")
-                            {
-                                place.innerText = "八里台";
-                            }
-                            else if (place.innerText === "")
-                            {
-                                place.innerText = "津南";
-                            }
-                        }
-                        var message = course[xkxh];
-                        if (message !== undefined)
-                        {
-                            var forms = [message[1],message[2],message[3],message[4],message[5]];
-                            for (var j = 0 ; j < 5 ; j++)
-                            {
-                                var cell = trs[i].insertCell();
-                                cell.innerText = forms[j];
-                                cell.align="center";
-                                cell.className="NavText";
-                            }   
-                        }
-                        else
-                        {
-                            var forms = ["","","",""];
-                            for (var j = 0 ; j < 5 ; j++)
-                            {
-                                var cell = trs[i].insertCell();
-                                cell.innerText = forms[j];
-                                cell.align="center";
-                                cell.className="NavText";
-                            }   
-                        }                 
-                    }
-                    //修改限选剩余名额和计划内剩余名额的按钮宽度
-                    var btn = mfc.getElementsByName('xuanke');
-                    if (btn[1] !== undefined)
-                        btn[1].style.width = "110px";
-                    if (btn[2] !== undefined)
-                        btn[2].style.width = "95px";
-                }
-            }
-            //修复课程冲突时无法生成课表的问题
-            if(isKebiao())
-            {
-                var mfcc = mf.contentDocument;
-                var center=mfcc.getElementsByTagName('center')[0];
-                var font1 = document.createElement('font');
-                var font2 = document.createElement('font');
-                font1.className='RedText';
-                font2.className='RedText';
-                var a1 = document.createElement('a');
-                var a2 = document.createElement('a');
-                a1.innerText = '生成课表（大学期）';
-                a1.href = "selectedAction.do?operation=kebiao";
-                a2.innerText = '生成课表（小学期）';
-                a2.href = "selectedAction.do?operation=kebiao1";
-                center.appendChild(font1);
-                center.appendChild(font2);
-                font1.appendChild(a1);
-                font2.appendChild(a2);
-            }
-            //修复无法评教的问题
-            if(isPingjiao())
-            {
-                var mfccc = mf.contentDocument;
-                var opinion = mfccc.getElementsByName('opinion');
-                if (opinion.length !== 0)
-                {
-                    opinion[0].id = 'opinion';
-                }
-            }
-        }
+        mf.onload = patchForMF;
     }
 }
 
@@ -395,64 +471,6 @@ function isGPAPage()
     return false;
 }
 
-//这个函数用来判断当前页面是否是学生选课页面
-function isSelectCoursePage()
-{
-    var mf = document.getElementsByName("mainFrame")[0];
-    if (mf !== undefined)
-    {
-        mf = mf.contentDocument;
-        if ((mf.location.pathname === "/xsxk/selectMianInitAction.do") || (mf.location.pathname === "/xsxk/swichAction.do"))
-            return true;
-    }
-    return false;
-}
-
-//这个函数用来判断现在的时间，以判断是否调用自动填充选课页面的信息
-function isSelectCourseTime()
-{
-    var date = new Date();
-    if ((date.getFullYear() === 2016) && (date.getMonth() <= 10))
-        return true;
-    else
-        return false;
-}
-
-//这个函数用来判断当前页面是否是已选课程页面，以及课程是否冲突
-function isKebiao()
-{
-    var mf = document.getElementsByName("mainFrame")[0];
-    if (mf !== undefined)
-    {
-        mf = mf.contentDocument;
-        if ((mf.location.pathname === "/xsxk/selectedAction.do"))
-        {
-            var centerList = mf.getElementsByTagName("center");
-            if (centerList.length === 1)
-                return false;
-            if (centerList[1].innerText.indexOf('冲突') === -1)
-                return false;
-            centerList[1].innerText = "";
-            return true;
-        }
-    }
-    return false;   
-}
-
-//这个函数用来判断当前页面是否是评教页面
-function isPingjiao()
-{
-    var mf = document.getElementsByName("mainFrame")[0];
-    if (mf !== undefined)
-    {
-        mf = mf.contentDocument;
-        if ((mf.location.pathname === "/evaluate/stdevatea/queryTargetAction.do"))
-        {
-            return true;
-        }
-    }
-    return false; 
-}
 
 //这个函数用来获取成绩页面的总页码数
 function GetPageNum()
