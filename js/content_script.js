@@ -316,21 +316,28 @@ function changeWidth(mfc)
 {
     var btn = mfc.getElementsByName('xuanke');
     if (btn[1] !== undefined)
+    {
         btn[1].style.width = "110px";
+    }
     if (btn[2] !== undefined)
+    {
         btn[2].style.width = "95px";
+    }
 }
 
 function addCourseClass(mfc,trs)
 {
     var tr = trs[3];
     var forms = ["任课教师","上课时间","起止周次","上课地点","开课单位"];
-    for (var i = 0 ; i < 5 ; i++)
+    if (tr !== undefined)
     {
-        var cell = tr.insertCell();
-        cell.innerText = forms[i];
-        cell.align="center";
-        cell.className="NavText style1";
+        for (var i = 0 ; i < 5 ; i++)
+        {
+            var cell = tr.insertCell();
+            cell.innerText = forms[i];
+            cell.align="center";
+            cell.className="NavText style1";
+        }
     }
 }
 
@@ -459,55 +466,41 @@ function Patch()
 }
 
 //这个函数用来判断当前页面是否是查看已修课程的成绩
-function isGPAPage()
+function isGPAPage(mfc)
 {
-    var mf = document.getElementsByName("mainFrame")[0];
-    if (mf !== undefined)
-    {
-        mf = mf.contentDocument;
-        if ((mf.location.pathname === "/xsxk/studiedAction.do") || (mf.location.pathname === "/xsxk/studiedPageAction.do"))
-            return true;
-    }
+    if ((mfc.location.pathname === "/xsxk/studiedAction.do") || (mfc.location.pathname === "/xsxk/studiedPageAction.do"))
+        return true;
     return false;
 }
 
 
 //这个函数用来获取成绩页面的总页码数
-function GetPageNum()
+function GetPageNum(mfc)
 {
-    var mf = document.getElementsByName("mainFrame")[0];
-    if (mf !== undefined)
-    {
-        mf = mf.contentDocument;
-        var pageNum = mf.getElementsByClassName("NavText style1")[8].innerHTML[2];
-        return pageNum;
-    }
-    return 0;
+    var pageNum = mfc.getElementsByClassName("NavText style1")[8].innerHTML[2];
+    return pageNum;
 }
 
 //这个函数用来跳到指定的页面
 function GoToPage(i)
 {
-    var mf = document.getElementsByName("mainFrame")[0];
-    if (mf !== undefined)
-    {
-        mf = mf.contentDocument;
-        var nts = mf.getElementsByClassName("NavText style1")[10];
-        var index = nts.getElementsByTagName("input")[0];
-        var submit = nts.getElementsByTagName("input")[1];
-        index.value = i;
-        submit.click();
-    }
+    var mf = window.top.document.getElementsByName("mainFrame")[0];
+    var mfc = mf.contentDocument;
+    var nts = mfc.getElementsByClassName("NavText style1")[10];
+    var index = nts.getElementsByTagName("input")[0];
+    var submit = nts.getElementsByTagName("input")[1];
+    index.value = i;
+    submit.click();
 }
 
 //把网页中的成绩学分课程等信息放到一个二维列表中
 function SaveToArray(arr)
 {
-    var mf = document.getElementsByName("mainFrame")[0];
-    mf = mf.contentDocument;
-    var array = mf.getElementsByClassName("NavText");
-    var length = (array.length - 15) / 8;
+    var mf = window.top.document.getElementsByName("mainFrame")[0];
+    var mfc = mf.contentDocument;
+    var array = mfc.getElementsByClassName("NavText");
     //array数组的前八个和后七个均不是我们需要的
+    var length = (array.length - 15) / 8;
     //8i+2----课程名称,8i+3------课程类型,8i+4------课程成绩,8i+5------课程学分
     for (var i = 1 ; i <= length ; i++)
     {
@@ -517,37 +510,16 @@ function SaveToArray(arr)
         //如果成绩小于60，则按照重修成绩60分计算
         if (parseInt(array[8*i+4].innerText) < 60)
             array[8*i+4].innerHTML = '60';
-        if (array[8*i+3].innerHTML.indexOf("A") !== -1)
+        var d = {"A":0,"B":1,"C":2,"D":3,"E":4};
+        for(var item in d)
         {
-            arr[0].push(array[8*i+2].innerHTML);
-            arr[0].push(array[8*i+4].innerHTML);
-            arr[0].push(array[8*i+5].innerHTML);
+            if (array[8 * i + 3].innerHTML.indexOf(item) !== -1)
+            {
+                arr[d[item]].push(array[8 * i + 2].innerHTML);
+                arr[d[item]].push(array[8 * i + 4].innerHTML);
+                arr[d[item]].push(array[8 * i + 5].innerHTML);
+            }
         }
-        if (array[8*i+3].innerHTML.indexOf("B") !== -1)
-        {
-            arr[1].push(array[8*i+2].innerHTML);
-            arr[1].push(array[8*i+4].innerHTML);
-            arr[1].push(array[8*i+5].innerHTML);
-        }
-        if (array[8*i+3].innerHTML.indexOf("C") !== -1)
-        {
-            arr[2].push(array[8*i+2].innerHTML);
-            arr[2].push(array[8*i+4].innerHTML);
-            arr[2].push(array[8*i+5].innerHTML);
-        }
-        if (array[8*i+3].innerHTML.indexOf("D") !== -1)
-        {
-            arr[3].push(array[8*i+2].innerHTML);
-            arr[3].push(array[8*i+4].innerHTML);
-            arr[3].push(array[8*i+5].innerHTML);
-        }
-        if (array[8*i+3].innerHTML.indexOf("E") !== -1)
-        {
-            arr[4].push(array[8*i+2].innerHTML);
-            arr[4].push(array[8*i+4].innerHTML);
-            arr[4].push(array[8*i+5].innerHTML);
-        }
-        
     }
 }
 
@@ -561,10 +533,10 @@ function calcClass(F)
     var CreditSum = 0;
     for (var i = 0 ; i < num ; i++)
     {
-        if (F[3*i+1].indexOf("未评价") === -1)
+        if (F[3 * i + 1].indexOf("未评价") === -1)
         {
-            GradeSum += Number(F[3*i+1]) * Number(F[3*i+2]);
-            CreditSum += Number(F[3*i+2]); 
+            GradeSum += Number(F[3 * i + 1]) * Number(F[3 * i + 2]);
+            CreditSum += Number(F[3 * i + 2]); 
         }
         
     }
@@ -583,10 +555,10 @@ function Calc(arr)
     var C = calcClass(arr[2]);
     var D = calcClass(arr[3]);
     var E = calcClass(arr[4]);
-    var ABC = (A[0]+B[0]+C[0]) / (A[1]+B[1]+C[1]);
-    var BCD = (B[0]+C[0]+D[0]) / (B[1]+C[1]+D[1]);
-    var ABCD = (A[0]+B[0]+C[0]+D[0]) / (A[1]+B[1]+C[1]+D[1]);
-    var ABCDE = (A[0]+B[0]+C[0]+D[0]+E[0]) / (A[1]+B[1]+C[1]+D[1]+E[1]);
+    var ABC = (A[0] + B[0] + C[0]) / (A[1] + B[1] + C[1]);
+    var BCD = (B[0] + C[0] + D[0]) / (B[1] + C[1] + D[1]);
+    var ABCD = (A[0] + B[0] + C[0] + D[0]) / (A[1] + B[1] + C[1] + D[1]);
+    var ABCDE = (A[0] + B[0] + C[0] + D[0] + E[0]) / (A[1] + B[1] + C[1] + D[1] + E[1]);
     res.push(ABC);
     res.push(BCD);
     res.push(ABCD);
@@ -615,84 +587,100 @@ function Show(arr)
     }
     
 }
+
 //接收
+//TODO 这里还没有很好的解决方案，先这样吧，以后再更改
 chrome.runtime.onMessage.addListener
 (
     function (request, sender, sendResponse) 
     {
-        if (isGPAPage())
+        //return true;
+        if (request.greeting === "gpa")
         {
-            //用来保存五类课的课程名称课程成绩和学分
+            var mf = window.top.document.getElementsByName("mainFrame")[0];
+            if (mf !== undefined)
+            {                 
+                var mfc = mf.contentDocument;
+                if (isGPAPage(mfc))
+                {
+                    //用来保存五类课的课程名称课程成绩和学分
+                    sendResponse({error:"noerror"});
+                    var result = [[],[],[],[],[]];
+                    var pageNum = GetPageNum(mfc);
+                    setTimeout
+                    (
+                        function ()
+                        {
+                            GoToPage(1);
+                        },
+                        500               
+                    );
+                    setTimeout
+                    (
+                        function ()
+                        {
+                            GoToPage(2);
+                            SaveToArray(result); 
+                        },
+                        1000
+                    );
+                    setTimeout
+                    (
+                        function ()
+                        {
+                            GoToPage(3);
+                            if (pageNum >= 2)
+                                SaveToArray(result); 
+                        },
+                        1500
+                    );
+                    setTimeout
+                    (
+                        function ()
+                        {
+                            GoToPage(4);
+                            if (pageNum >= 3)
+                                SaveToArray(result);
+                        },
+                        2000
+                    );
+                    setTimeout
+                    (
+                        function ()
+                        {
+                            GoToPage(5);
+                            if (pageNum >= 4)
+                                SaveToArray(result); 
+                        },
+                        2500
+                    );
+                    setTimeout
+                    (
+                        function ()
+                        {
+                            GoToPage(6);
+                            if (pageNum >= 5)
+                                SaveToArray(result);
+                        },
+                        3000
+                    );
+                    setTimeout
+                    (
+                        function ()
+                        {
+                            var res = Calc(result);
+                            //sendResponse({page:pageNum});
+                            Show(res);
+                        },
+                        3500
+                    );
+                }
+            }
             sendResponse({error:"noerror"});
-            var result = [[],[],[],[],[]];
-            var pageNum = GetPageNum();
-            setTimeout
-            (
-                function ()
-                {
-                    GoToPage(1);
-                },
-                500               
-            );
-            setTimeout
-            (
-                function ()
-                {
-                    GoToPage(2);
-                    SaveToArray(result); 
-                },
-                1000
-            );
-            setTimeout
-            (
-                function ()
-                {
-                    GoToPage(3);
-                    if (pageNum >= 2)
-                        SaveToArray(result); 
-                },
-                1500
-            );
-            setTimeout
-            (
-                function ()
-                {
-                    GoToPage(4);
-                    if (pageNum >= 3)
-                        SaveToArray(result);
-                },
-                2000
-            );
-            setTimeout
-            (
-                function ()
-                {
-                    GoToPage(5);
-                    if (pageNum >= 4)
-                        SaveToArray(result); 
-                },
-                2500
-            );
-            setTimeout
-            (
-                function ()
-                {
-                    GoToPage(5);
-                    if (pageNum >= 5)
-                        SaveToArray(result);
-                },
-                3000
-            );
-            setTimeout
-            (
-                function ()
-                {
-                    var res = Calc(result);
-                    //sendResponse({page:pageNum});
-                    Show(res);
-                },
-                3500
-            );
+        }
+        else if (request.greeting == "qiangke")
+        {
+            sendResponse({error:"noerror"});
         }
         else
         {

@@ -23,16 +23,16 @@ function AddFunCalc()
 	        chrome.tabs.sendMessage
 	        (
 	            tabs[0].id, 
-	            {greeting: "hello"},
+	            {greeting: "gpa"},
 	            function(response) 
 	            {    
 	                if (response === undefined)
-	                    alert("这个只能在选课系统-已修课程那里用哦～");
+	                    alert("undefined这个只能在选课系统-已修课程那里用哦～");
 	                else
 	                {
                         if (response.error === "error")
                         {
-                            alert("这个只能在选课系统-已修课程那里用哦～");
+                            alert("error这个只能在选课系统-已修课程那里用哦～");
                         }
 	                }
 	                    
