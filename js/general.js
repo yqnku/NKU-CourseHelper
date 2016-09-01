@@ -33,7 +33,7 @@ javascript:((function(){
             }
         }
     }
-    var mf = document.getElementsByName("mainFrame")[0];
+    var mf = window.top.document.getElementsByName("mainFrame")[0];
     if (mf !== undefined)
     {
         mf = mf.contentDocument;
@@ -62,7 +62,8 @@ javascript:((function(){
         {
             var page = mf.getElementsByClassName("NavText style1")[8].innerHTML[8];
             setInterval(function(){
-                var mfc = document.getElementsByName("mainFrame")[0];
+                var mfc = window.top.document.getElementsByName("mainFrame")[0];
+                mfc=mfc.contentDocument;
                 var nts = mfc.getElementsByClassName("NavText style1")[10]; 
                 var index = nts.getElementsByTagName("input")[0];
                 var submit = nts.getElementsByTagName("input")[1];
