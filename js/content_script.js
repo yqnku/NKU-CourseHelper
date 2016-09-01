@@ -607,6 +607,28 @@ chrome.runtime.onMessage.addListener
                     sendResponse({error:"noerror"});
                     var result = [[],[],[],[],[]];
                     var pageNum = GetPageNum(mfc);
+                    var i = 1;
+                    //sigh 算了还是先这样子吧，等开学再说
+                    /*
+                    function tmp()
+                    {
+                        if (i <= pageNum)
+                        {
+                            GoToPage(i);
+                            SaveToArray(result);
+                            console.log(i);
+                            i += 1;
+                            setTimeout(tmp,500);
+                        }
+                        else
+                        {
+                            console.log(result);
+                            var res = Calc(result);
+                            Show(res);
+                        }
+                    }
+                    setTimeout(tmp,500);
+                    */
                     setTimeout
                     (
                         function ()
