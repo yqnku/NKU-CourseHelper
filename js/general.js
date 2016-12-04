@@ -58,18 +58,24 @@ javascript:((function(){
             font1.appendChild(a1);
             font2.appendChild(a2);
         }
-        if ((mf.location.pathname === "/xsxk/studiedAction.do") || (mf.location.pathname === "/xsxk/studiedPageAction.do"))
+        if ((mf.location.pathname === "/xsxk/selectMianInitAction.do") || (mf.location.pathname === "/xsxk/swichAction.do"))
         {
-            var page = mf.getElementsByClassName("NavText style1")[8].innerHTML[8];
+            var xkxh = new Array(4);
+            for (var i = 1 ; i < 5 ; i++)
+            {
+                xkxh[i-1] = mf.getElementsByName('xkxh'+i)[0].value;
+            }
             setInterval(function(){
                 var mfc = window.top.document.getElementsByName("mainFrame")[0];
                 mfc=mfc.contentDocument;
-                var nts = mfc.getElementsByClassName("NavText style1")[10]; 
-                var index = nts.getElementsByTagName("input")[0];
-                var submit = nts.getElementsByTagName("input")[1];
-                index.value = page;
+                for (var i = 1 ; i < 5 ; i++)
+                {
+                    mfc.getElementsByName('xkxh'+i)[0].value = xkxh[i-1];
+                }
+                var submit = mfc.getElementsByName('xuanke')[0];
                 submit.click();
             },3000);
-        }
+       }
     }
 })())
+
