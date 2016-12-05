@@ -52,7 +52,21 @@ function Search()
     else
         document.getElementById("ms").innerText = "课程名称："+message[0]+"\n"+"任课教师："+message[1]+"\n"+"上课时间："+message[2]+"\n"+"上课地点："+message[3]+"\n"+"开课单位："+message[4];
         $("#ms").hide(0);
-        $("#ms").show(1000);
+        $("#ms").show(500);
+}
+
+function Pay()
+{
+    var html = '';
+    html += '<p>南开选课系统helper本身是免费的，但开发和维护都需要时间和精力来完成。如果您觉得此插件对您有帮助，您可以通过支付宝或微信来对开发者进行打赏，鼓励开发者写出更好的软件。您也可以关注我的微信公众号，获取最新的资讯。</p>';
+    html += '<br/><hr/><br/>';
+    html += '<p>用支付宝扫一扫打赏</p>';
+    html += '<div align="center"><img src="../img/alipay.jpg"></div>';
+    html += '<p>用微信扫一扫打赏</p>';
+    html += '<div align="center"><img src="../img/weixinpay.jpg"></div>';
+    html += '<p>个人微信公众号</p>';
+    html += '<div align="center"><img src="../img/weixin.jpg"></div>';
+    $('#showPay').html(html);
 }
 
 //响应enter键
@@ -72,6 +86,7 @@ $(document).ready
     {
         $("#sta").click(AddFunCalc);
         $("#query").click(Search);
+        $('#pay').click(Pay);
         $("#xkxh").keydown(EnterHandler);
     }
 );

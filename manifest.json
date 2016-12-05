@@ -2,7 +2,7 @@
     "name":"南开选课系统helper",
     "version":"3.0",
     "manifest_version":2,
-    "description":"Patch For 222.30.49.10,Thank you for using!",
+    "description":"修复了南开选课系统的许多问题，并加入了学分绩计算的功能，谢谢使用",
     "icons":
     {
         "128":"img/bg.png"
