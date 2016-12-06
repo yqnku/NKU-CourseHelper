@@ -275,6 +275,16 @@ function isSelectCoursePage(mfc)
     return false;
 }
 
+//这个函数用来判断现在的时间，以判断是否调用自动填充选课页面的信息
+function isSelectCourseTime()
+{
+    var date = new Date();
+    if ((date.getFullYear() === year) && (date.getMonth() <= month))
+        return true;
+    else
+        return false;
+}
+
 //这个函数用来判断当前页面是否是已选课程页面，以及课程是否冲突
 function isKebiao(mfc)
 {
@@ -349,7 +359,7 @@ function changePlaceName(trs,i)
 }
 
 //增加选课中的课程信息
-function addInfo(trs,i,course)
+function addInfo(trs,i)
 {
     var xkxh = trs[i].getElementsByTagName('td')[1].innerText;
     var message = course[xkxh];
@@ -378,16 +388,14 @@ function addInfo(trs,i,course)
 }
 
 //添加课程信息
-function addCourseInformation(mfc,xhr)
+function addCourseInformation(mfc)
 {
-    
-    var course = JSON.parse(xhr.responseText);
     var trs=mfc.getElementsByTagName('tr');
     addCourseClass(mfc,trs);
     for (var i = 4; i < trs.length-1; i++)
     {
         changePlaceName(trs,i);
-        addInfo(trs,i,course);
+        addInfo(trs,i);
     }
     changeWidth(mfc); 
 }
@@ -430,14 +438,10 @@ function patchForMF()
     if (isSelectCoursePage(mfc)) 
     {
         patchForPage(mfc);
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function(){
-            if (xhr.readyState == 4){
-                addCourseInformation(mfc,xhr);
-            }
-        };
-        xhr.open("GET",'https://www.quicy.cn/files/course.json',true);
-        xhr.send();
+        if (isSelectCourseTime())
+        {
+            addCourseInformation(mfc);
+        }
     }
     if(isKebiao(mfc))
     {
@@ -451,6 +455,13 @@ function patchForMF()
 //用来修复选课系统的一些问题
 function Patch()
 {
+    //test
+    var xhr = new XMLHttpRequest();
+    //xhr.onreadystatechange = function(){alert("123");};
+    xhr.open("GET", chrome.extension.getURL('https://www.quicy.cn/files/course.js'));
+    xhr.send();
+    alert(year);
+
     addID();
     fillValid();
     leftFrameVisible();

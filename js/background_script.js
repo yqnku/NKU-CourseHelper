@@ -27,12 +27,12 @@ function AddFunCalc()
 	            function(response) 
 	            {    
 	                if (response === undefined)
-	                    alert("undefined这个只能在选课系统-已修课程那里用哦～");
+	                    alert("这个只能在选课系统-已修课程那里用哦～");
 	                else
 	                {
                         if (response.error === "error")
                         {
-                            alert("error这个只能在选课系统-已修课程那里用哦～");
+                            alert("这个只能在选课系统-已修课程那里用哦～");
                         }
 	                }
 	                    

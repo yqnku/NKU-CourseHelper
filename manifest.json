@@ -10,11 +10,13 @@
     "permissions": 
     [
         "http://222.30.49.10/*",
+        "https://www.quicy.cn/files/course.json",
         "tabs"
     ],
     "web_accessible_resources": 
     [
-        "/js/selectMianInitAction.js"
+        "/js/selectMianInitAction.js",
+        "https://www.quicy.cn/files/course.json"
     ],
     "content_scripts":
     [
@@ -26,7 +28,6 @@
             "run_at":"document_start",
             "js":
             [
-                "js/course.js",
                 "js/content_script.js"
             ]
         }

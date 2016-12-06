@@ -8,7 +8,7 @@ $(document).ready(function () {
     });
 
     $('li').hover(function(){
-        var left = $(this).offset().left - ($(this).parents('.lavalamp').offset().left + 15);
+        var left = $(this).offset().left - ($(this).parents('.lavalamp').offset().left + 12);
         var width = $(this).width() + "px";
         var sictranslate = "translate("+left+"px, 0px)";
         $(this).parent('ul').next('div.floatr').css({
@@ -18,7 +18,7 @@ $(document).ready(function () {
         });
     },
     function(){
-        var left = $(this).siblings('li.active').offset().left - ($(this).parents('.lavalamp').offset().left + 15);
+        var left = $(this).siblings('li.active').offset().left - ($(this).parents('.lavalamp').offset().left + 12);
         var width = $(this).siblings('li.active').width() + "px";
         var sictranslate = "translate("+left+"px, 0px)";
         $(this).parent('ul').next('div.floatr').css({
